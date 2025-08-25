@@ -1,27 +1,56 @@
-# sc-tag-to-high-low-id
+# Supercell Tags Algorithm
 
-A simple python script that converts a Supercell Games player tag to High and Low ID.
+A Python implementation of the **Supercell Tags Algorithm**, used across all Supercell games  
+(Clash of Clans, Clash Royale, Brawl Stars, Boom Beach, Hay Day, etc.)  
+to convert between **internal IDs** and their **public tags**.
 
-## Description
+---
 
-With this script, you can get player tag's High and Low ID.
-Supported Games:
-- Clash of Clans
-- Clash Royale
-- Brawl Stars
-- Hay Day
-- Boom Beach
-- & every other Supercell Game, they all use the same algorithm.
+## How it works
+Supercell encodes IDs into tags using a custom base-14 alphabet:
 
-### Installing
+0289PYLQGRJCUV
 
-```
-git clone https://github.com/scorpeus/sc-tag-to-high-low-id
-```
+- Every player, clan, or club has an internal ID = (lowID * 256) + highID.
+- That integer is converted into base-14 using the alphabet above.
+- The result is the tag you see in-game (always prefixed with #).
 
-### Executing program
+Examples:
+- (highID=0, lowID=1) → #2PP (the very first player ever created).
+- (highID=0, lowID=2) → #8GG.
+- (highID=0, lowID=3) → #9UU.
 
-```
-cd sc-tag-to-high-low-id
-python3 Main.py
-```
+---
+
+## Features
+- Normalize tags (#, case-insensitive, replace O with 0)
+- Convert tag → (highID, lowID)
+- Convert (highID, lowID) → tag
+- Pure Python, no external dependencies
+
+---
+
+## Quick Reference Table
+
+Here are the first few IDs and their corresponding tags:
+
+High ID | Low ID | Internal ID | Tag
+------- | ------ | ----------- | ----
+0       | 1      | 1           | #2PP
+0       | 2      | 2           | #8QR
+0       | 3      | 3           | #9UU
+0       | 4      | 4           | #Y98
+0       | 5      | 5           | #L9C
+0       | 6      | 6           | #QJG
+0       | 7      | 7           | #GR0
+0       | 8      | 8           | #R2C
+0       | 9      | 9           | #J8Y
+0       | 10     | 10          | #C9P
+
+(Internal ID = lowID * 256 + highID)
+
+---
+
+## Lookup Files
+This repo also includes pre-generated CSV and JSON files  
+containing the first 1000 mappings (highID, lowID → tag) for quick reference.
